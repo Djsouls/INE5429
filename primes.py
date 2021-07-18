@@ -2,16 +2,29 @@ from enum import Enum, auto
 
 from random import randint, getrandbits
 
-from random_ import randomNBits
+from random_ import randomNBits, genSeed
 
 class Algorithm:
     MILLER_RABIN = auto()
     ANOTHER = auto()
 
-
 # Checks if a given number is prime
-def millerRabin(p: int, rounds=8):
+def millerRabin(p: int, rounds: int = 8) -> bool:
+    """Checks if a given number is prime using the Miller-Rabin algorithm.
+
+    Args:
+        p: The number to check
+        rounds: The number of rounds wanted in the check
+    """
+
     def isComposite(p: int, d: int):
+        """Verify if a given number is composite
+
+        Args:
+            p: The number to be verified
+            d: The number of times p can be dived by 2
+        """
+
         a = randint(2, p - 1)
 
         x = pow(a, d, p)
@@ -20,7 +33,7 @@ def millerRabin(p: int, rounds=8):
             return False
 
         while d != p - 1:
-            x = pow(x, 2, p)
+            x = x * x % p
 
             d *= 2
 
@@ -29,18 +42,7 @@ def millerRabin(p: int, rounds=8):
             if x == p - 1:
                 return False
 
-        return True
-        '''
-        for _ in range(1, s):
-            x = pow(x, 2, p)
-
-            if x == 1:
-                return True
-
-            elif x == p - 1:
-                return False
-        '''
-        #return True
+        return True 
  
     if p == 2:
         return True
@@ -48,8 +50,12 @@ def millerRabin(p: int, rounds=8):
     if p % 2 == 0 or p % 3 == 0 or p % 5 == 0 or p % 7 == 0 or p % 11 == 0:
         return False
 
+    if (p ** 2 - 1) % 24 != 0:
+        return False
+
     d = p - 1
 
+    # Checking how many times d can be divided by 2
     while d % 2 == 0:
         d >>= 1
 
@@ -60,13 +66,20 @@ def millerRabin(p: int, rounds=8):
     return True
 
 def getPrimeNBits(nBits: int, algorithm=Algorithm.MILLER_RABIN):
-    p = randomNBits(nBits)
-    i = 0
-    
-    if algorithm == Algorithm.MILLER_RABIN:
-        while not millerRabin(p):
-            p = randomNBits(nBits)
+    """Gets a prime with nBits bits of length
 
+    Args:
+        nBits: The number of bits desired
+        algorthm: The algorithm to check primality
+    """
+
+    seed = genSeed(nBits)
+    p = randomNBits(nBits, seed)
+    i = 0
+
+    if algorithm == Algorithm.MILLER_RABIN:
+        while not millerRabin(int(p)):
+            p = randomNBits(nBits, p)
             i += 1
         print(f'Numbers tested: {i}')
 
