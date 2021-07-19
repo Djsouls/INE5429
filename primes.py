@@ -6,7 +6,7 @@ from random_ import randomNBits, genSeed
 
 class Algorithm:
     MILLER_RABIN = auto()
-    ANOTHER = auto()
+    FERMAT = auto()
 
 # Checks if a given number is prime
 def millerRabin(p: int, rounds: int = 8) -> bool:
@@ -65,6 +65,24 @@ def millerRabin(p: int, rounds: int = 8) -> bool:
 
     return True
 
+def fermat(p: int, rounds: int = 8):
+    if p == 2:
+        return True
+
+    if p % 2 == 0 or p % 3 == 0 or p % 5 == 0 or p % 7 == 0 or p % 11 == 0:
+        return False
+
+    if (p ** 2 - 1) % 24 != 0:
+        return False
+
+    for _ in range(rounds):
+        a = randint(2, p - 1)
+
+        if pow(a, p - 1, p) != 1:
+            return False
+
+    return True
+
 def getPrimeNBits(nBits: int, algorithm=Algorithm.MILLER_RABIN):
     """Gets a prime with nBits bits of length
 
@@ -84,7 +102,11 @@ def getPrimeNBits(nBits: int, algorithm=Algorithm.MILLER_RABIN):
         print(f'Numbers tested: {i}')
 
         return p
-    elif algorithm == Algorithm.ANOTHER:
-        ...
+    elif algorithm == Algorithm.FERMAT:
+        while not fermat(int(p)):
+            p = randomNBits(nBits, p)
+            i += 1
 
-    #return p
+        print(f'Numbers tested: {i}')
+
+        return p
