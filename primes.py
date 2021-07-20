@@ -12,6 +12,10 @@ class Algorithm:
 def millerRabin(p: int, rounds: int = 8) -> bool:
     """Checks if a given number is prime using the Miller-Rabin algorithm.
 
+    Inspirations:
+        https://en.wikipedia.org/wiki/Fermat_primality_test
+        https://www.geeksforgeeks.org/primality-test-set-3-miller-rabin/
+
     Args:
         p: The number to check
         rounds: The number of rounds wanted in the check
@@ -32,10 +36,8 @@ def millerRabin(p: int, rounds: int = 8) -> bool:
         if x == 1 or x == p - 1:
             return False
 
-        while d != p - 1:
-            x = x * x % p
-
-            d *= 2
+        for _ in range(d):
+            x = x ** 2 % p
 
             if x == 1:
                 return True
@@ -43,7 +45,8 @@ def millerRabin(p: int, rounds: int = 8) -> bool:
                 return False
 
         return True 
- 
+
+    ### """Optimizations"""
     if p == 2:
         return True
 
@@ -52,6 +55,7 @@ def millerRabin(p: int, rounds: int = 8) -> bool:
 
     if (p ** 2 - 1) % 24 != 0:
         return False
+    ###
 
     d = p - 1
 
@@ -66,6 +70,14 @@ def millerRabin(p: int, rounds: int = 8) -> bool:
     return True
 
 def fermat(p: int, rounds: int = 8):
+    """Checks if a given number is a probable prime using the Fermat Test
+
+    Inspiration: https://en.wikipedia.org/wiki/Fermat_primality_test
+
+    Args:
+        p: The number to be tested
+        rounds: The number of rounds in the verification
+    """
     if p == 2:
         return True
 
