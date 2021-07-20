@@ -1,3 +1,9 @@
+## Para executar
+
+A única depêndencia não nativa desse projeto é o pacote [FixedInt](https://github.com/nneonneo/fixedint), que pode ser instalado através do comando `pip install fixedint`.
+
+Para executar, no terminal digite `python3 main.py`
+
 ## Miller-Rabin:
 
 | Número de bits | Números testados | Tempo (s) | Número |

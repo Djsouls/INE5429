@@ -8,7 +8,6 @@ class Algorithm:
     MILLER_RABIN = auto()
     FERMAT = auto()
 
-# Checks if a given number is prime
 def millerRabin(p: int, rounds: int = 8) -> bool:
     """Checks if a given number is prime using the Miller-Rabin algorithm.
 
@@ -36,8 +35,10 @@ def millerRabin(p: int, rounds: int = 8) -> bool:
         if x == 1 or x == p - 1:
             return False
 
-        for _ in range(d):
+        while d != p - 1:
             x = x ** 2 % p
+
+            d *= 2
 
             if x == 1:
                 return True
@@ -105,12 +106,13 @@ def getPrimeNBits(nBits: int, algorithm=Algorithm.MILLER_RABIN):
 
     seed = genSeed(nBits)
     p = randomNBits(nBits, seed)
-    i = 0
+    i = 0 # Only for presentation purposes
 
     if algorithm == Algorithm.MILLER_RABIN:
         while not millerRabin(int(p)):
             p = randomNBits(nBits, p)
             i += 1
+
         print(f'Numbers tested: {i}')
 
         return p
