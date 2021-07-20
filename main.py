@@ -13,7 +13,8 @@ for n in nBits:
 
     elapsed = process_time() - t
     total += elapsed
-    print(f'time for {n}: {elapsed}')
+
+    print(f'Time for {n}: {elapsed}')
     print(p)
     print()
 
