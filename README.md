@@ -1,5 +1,5 @@
 # Projeto prático da matéria de Segurança em Computação - INE5429
-A ideia do projeto era realizar a implementação de um gerador de números primos de `n` bits. O método sugerido foi realizar sucessivas gerações de números aleatórios (o PRNG também era parte do trabalho) e testá-los para primalidade. Para a geração de números aleatórios os algoritmos escolhidos foram Xorshift e BBS (Blum-Blum-Shub). Para o teste de primalidade foram implementados os algoritmos de Miller-Rabin e Fermat.
+A ideia do projeto era realizar a implementação de um gerador de números primos de `n` bits. O método sugerido foi realizar sucessivas gerações de números aleatórios (o PRNG também era parte do trabalho) e testá-los para primalidade. Para a geração de números aleatórios os algoritmos escolhidos foram Xorshift e BBS (Blum-Blum-Shub). Para o teste de primalidade foram implementados os algoritmos de Miller-Rabin e Fermat. Para mais informações, leia o relatório `Report.pdf`.
 
 ## Para executar
 
