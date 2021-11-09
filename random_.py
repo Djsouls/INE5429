@@ -57,7 +57,7 @@ def bbs(nBits: int, seed: int) -> int:
 
     b = 0
 
-    x = s ** 2 % m
+    x = seed ** 2 % m
 
     b = b | (x & 1)
 
